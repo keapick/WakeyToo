@@ -1,0 +1,81 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@" : {
+
+    },
+    "Add Server" : {
+
+    },
+    "Clear Log" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Edit" : {
+
+    },
+    "Hardware or MAC Address" : {
+
+    },
+    "Help" : {
+
+    },
+    "https://ieesizaq.com/wakeytoo/" : {
+
+    },
+    "Invalid MAC Address" : {
+
+    },
+    "Log" : {
+
+    },
+    "Name" : {
+
+    },
+    "Name cannot be empty" : {
+
+    },
+    "Okay, sending a magic packet to %@." : {
+
+    },
+    "Save" : {
+
+    },
+    "Server" : {
+
+    },
+    "Server to Wake" : {
+
+    },
+    "Servers" : {
+
+    },
+    "Wake ${server}" : {
+
+    },
+    "Wake ${serverEntity}" : {
+
+    },
+    "Wake ${serverName}" : {
+
+    },
+    "Wake a Server" : {
+
+    },
+    "Wake server" : {
+
+    },
+    "Wakes a server with a Magic Packet" : {
+
+    },
+    "WakeyToo" : {
+
+    }
+  },
+  "version" : "1.0"
+}

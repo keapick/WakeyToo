@@ -1,0 +1,11 @@
+{
+    "version":"1.0.0",
+    "logLevel": 1,
+    "testString": "Hello World!",
+    "testInt": 12345,
+    "testArray": [ "abc", "xyz" ],
+    "testDictionary": {
+        "when": "Today",
+        "where": "At Work"
+    }
+}
