@@ -32,9 +32,7 @@ enum ServerMigrationPlan: SchemaMigrationPlan {
         didMigrate: { context in
             let servers = try context.fetch(FetchDescriptor<ServerVersionSchemaV2.Server>())
             for server in servers {
-                //print("Before: \(server.appEntityID)")
                 server.appEntityID = UUID()
-                //print("After: \(server.appEntityID)")
             }
             try? context.save()
         }
@@ -54,8 +52,6 @@ public enum ServerVersionSchemaV1: VersionedSchema {
     public final class Server {
         @Attribute(.unique) public var macAddress: String
         public var name: String
-        
-        // sort by most recently accessed
         public var lastUsed: Date?
         
         public init(macAddress: String, name: String) {
@@ -82,8 +78,6 @@ public enum ServerVersionSchemaV2: VersionedSchema {
         
         // App Intents require a UUID
         public var appEntityID: UUID = UUID()
-        
-        // sort by most recently accessed
         public var lastUsed: Date?
         
         public init(macAddress: String, name: String) {

@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5F0871032CEDC55B00085BD1 /* echo_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F0871012CEDC47800085BD1 /* echo_config.json */; };
-		5F26149A2CFD6772007BBFBE /* WakeyLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5F2614992CFD6772007BBFBE /* WakeyLib */; };
 		5F2A95BB2D0519D900BB3BF2 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2A95BA2D0519D900BB3BF2 /* EditView.swift */; };
-		5F6046BD2D0AB481004520F6 /* WakeyLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6046BC2D0AB481004520F6 /* WakeyLib */; };
 		5FD3A04D2C5C44A30041F54B /* WakeyTooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD3A04C2C5C44A30041F54B /* WakeyTooApp.swift */; };
 		5FD3A04F2C5C44A30041F54B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD3A04E2C5C44A30041F54B /* SettingsView.swift */; };
 		5FD3A0532C5C44A40041F54B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FD3A0522C5C44A40041F54B /* Assets.xcassets */; };
@@ -61,8 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F6046BD2D0AB481004520F6 /* WakeyLib in Frameworks */,
-				5F26149A2CFD6772007BBFBE /* WakeyLib in Frameworks */,
 				5FE200082E020A6C005BC5C7 /* WakeyLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,7 +209,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					5FD3A0482C5C44A30041F54B = {
 						CreatedOnToolsVersion = 15.4;
@@ -359,6 +355,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -423,6 +420,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -451,10 +449,9 @@
 				CODE_SIGN_ENTITLEMENTS = WakeyToo/WakeyToo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"WakeyToo/Preview Content\"";
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -466,7 +463,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieesizaq.Wakey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -482,10 +479,9 @@
 				CODE_SIGN_ENTITLEMENTS = WakeyToo/WakeyToo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"WakeyToo/Preview Content\"";
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -497,7 +493,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieesizaq.Wakey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -512,7 +508,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -531,7 +526,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -549,7 +543,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieesizaq.WakeyTooUITests;
@@ -566,7 +559,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 8ZKUDT7A65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieesizaq.WakeyTooUITests;
