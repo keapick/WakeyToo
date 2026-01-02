@@ -14,6 +14,8 @@ struct SettingsView: View {
     static let titleString = "WakeyToo, a Wake-on-LAN Utility"
 
     @State private var showingDialog = false
+    @State private var serverBeingEdited: Server? = nil
+    @State private var editSessionID = UUID()
     
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Server.lastUsed, order: .reverse) private var servers: [Server]
@@ -33,6 +35,11 @@ struct SettingsView: View {
                             HStack {
                                 Text(server.macAddress)
                                 Spacer()
+                                Button("Edit") {
+                                    serverBeingEdited = server
+                                    editSessionID = UUID()
+                                    showingDialog = true
+                                }
                                 Button("Remove", role: .destructive) {
                                     modelContext.delete(server)
                                 }
@@ -45,13 +52,10 @@ struct SettingsView: View {
                         )
                     }
                     Button("Add Server") {
-                        showingDialog.toggle()
+                        serverBeingEdited = nil
+                        editSessionID = UUID()
+                        showingDialog = true
                     }
-                    .alert("New Server", isPresented: $showingDialog) {
-                        EditView()
-                            .modelContext(modelContext)
-                    }
-                    .dialogIcon(Image(systemName: "network"))
                 }
                 .listRowSeparator(.hidden)
 
@@ -64,6 +68,12 @@ struct SettingsView: View {
                 }
                 .listRowSeparator(.hidden)
             }
+            .alert(serverBeingEdited == nil ? "New Server" : "Edit Server", isPresented: $showingDialog) {
+                EditView(serverToEdit: serverBeingEdited)
+                    .id(editSessionID)
+                    .modelContext(modelContext)
+            }
+            .dialogIcon(Image(systemName: "network"))
         }
         .frame(minWidth: 400, maxWidth: 400, minHeight: 200, maxHeight: .infinity)
         .navigationTitle(SettingsView.titleString)
