@@ -10,11 +10,36 @@ import WakeyLib
 
 struct EditView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    
+    var serverToEdit: Server?
     
     @State private var macAddress = ""
     @State private var name = ""
     @State private var validMacAddress = false
     @State private var validName = false
+    
+    init(serverToEdit: Server? = nil) {
+        self.serverToEdit = serverToEdit
+        _macAddress = State(initialValue: serverToEdit?.macAddress ?? "")
+        _name = State(initialValue: serverToEdit?.name ?? "")
+        _validMacAddress = State(initialValue: serverToEdit.map { WakeOnLAN.validate(macAddress: $0.macAddress) } ?? false)
+        _validName = State(initialValue: serverToEdit.map { WakeOnLAN.validate(name: $0.name) } ?? false)
+    }
+    
+    private func populateFromServer() {
+        if let server = serverToEdit {
+            name = server.name
+            macAddress = server.macAddress
+            validName = WakeOnLAN.validate(name: server.name)
+            validMacAddress = WakeOnLAN.validate(macAddress: server.macAddress)
+        } else {
+            name = ""
+            macAddress = ""
+            validName = false
+            validMacAddress = false
+        }
+    }
     
     var body: some View {
         Form {
@@ -27,8 +52,7 @@ struct EditView: View {
                 .disabled(!validName || !validMacAddress)
             
             Button("Cancel", role: .cancel) {
-                validName = false
-                validMacAddress = false
+                dismiss()
             }
         }
         .onChange(of: name) { oldValue, newValue in
@@ -36,6 +60,12 @@ struct EditView: View {
         }
         .onChange(of: macAddress) { oldValue, newValue in
             validMacAddress = WakeOnLAN.validate(macAddress: newValue)
+        }
+        .onAppear {
+            populateFromServer()
+        }
+        .onChange(of: serverToEdit?.appEntityID) { _, _ in
+            populateFromServer()
         }
     }
     
@@ -49,9 +79,17 @@ struct EditView: View {
             return
         }
         
-        let newServer = Server(macAddress: macAddress, name: name)
-        modelContext.insert(newServer)
-        try? modelContext.save()
+        if let server = serverToEdit {
+            server.name = name
+            server.macAddress = macAddress
+            try? modelContext.save()
+            dismiss()
+        } else {
+            let newServer = Server(macAddress: macAddress, name: name)
+            modelContext.insert(newServer)
+            try? modelContext.save()
+            dismiss()
+        }
     }
 }
 
@@ -60,3 +98,4 @@ struct EditView: View {
     EditView()
         .modelContainer(for: Server.self, inMemory: true)
 }
+
