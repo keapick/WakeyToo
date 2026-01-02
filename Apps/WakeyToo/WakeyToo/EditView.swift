@@ -82,14 +82,13 @@ struct EditView: View {
         if let server = serverToEdit {
             server.name = name
             server.macAddress = macAddress
-            try? modelContext.save()
-            dismiss()
         } else {
             let newServer = Server(macAddress: macAddress, name: name)
             modelContext.insert(newServer)
-            try? modelContext.save()
-            dismiss()
         }
+        
+        try? modelContext.save()
+        dismiss()
     }
 }
 
