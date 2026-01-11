@@ -8,10 +8,9 @@
 import AppIntents
 
 struct WakeServerShortcuts: AppShortcutsProvider {
+    
     static var appShortcuts: [AppShortcut] {
         
-        // All the phrases need applicationName
-        // Although these can be parameterized, I found it unreliable and I'm a native english speaker...
         AppShortcut(
             intent: WakeServer(),
             phrases: [

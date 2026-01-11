@@ -15,7 +15,7 @@ public enum NetworkError: Error {
     case networkUnreachable // no connections found
     case cannotAssignRequestedAddress // no LAN connections found. Likely cell or public IP only
     case noSuchFileOrDirectory // on macOS 15+, this indicates a lack of network permission
-    case socketFailue // catch all for any socket related error
+    case socketFailure // catch all for any socket related error
 }
 
 public struct WakeOnLAN {
@@ -164,7 +164,7 @@ public struct WakeOnLAN {
             }
         }
         guard clientBindStatus != -1 else {
-            throw NetworkError.socketFailue
+            throw NetworkError.socketFailure
         }
         
         let magicPacket = try self.createMagicPackageFor(macAddress: macAddress)
@@ -208,7 +208,7 @@ public struct WakeOnLAN {
                 // errno is global, so there's a chance it was overwritten by a different system call failure
                 // https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20161031/028627.html
                 Logger.shared.logVerbose(message: "Unexpected errno: \(errno). There is a known issue with Swift and errno, so this could be misleading.")
-                throw NetworkError.socketFailue
+                throw NetworkError.socketFailure
             }
         }
     }
@@ -216,7 +216,7 @@ public struct WakeOnLAN {
     static func setupSocket() throws -> Int32 {
         let udpSocket = socket(AF_INET, SOCK_DGRAM, 0)
         guard udpSocket != -1 else {
-            throw NetworkError.socketFailue
+            throw NetworkError.socketFailure
         }
         
         // In C it's just "int broadcast = 1;"
@@ -229,7 +229,7 @@ public struct WakeOnLAN {
         // SO_BROADCAST works on both IPv4 and IPv6
         let broadcastSetupStatus = setsockopt(udpSocket, SOL_SOCKET, SO_BROADCAST, broadcast, socklen_t(MemoryLayout<Int32>.size))
         guard broadcastSetupStatus != -1 else {
-            throw NetworkError.socketFailue
+            throw NetworkError.socketFailure
         }
         
         return udpSocket

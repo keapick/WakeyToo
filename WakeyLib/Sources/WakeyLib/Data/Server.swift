@@ -8,11 +8,6 @@
 import Foundation
 import SwiftData
 
-// Apple hasn't made this Swift 6 compatible yet
-// https://developer.apple.com/forums/thread/756802
-extension MigrationStage: @unchecked @retroactive Sendable { }
-extension Schema.Version: @unchecked @retroactive Sendable { }
-
 public typealias Server = ServerVersionSchemaV2.Server
 
 enum ServerMigrationPlan: SchemaMigrationPlan {

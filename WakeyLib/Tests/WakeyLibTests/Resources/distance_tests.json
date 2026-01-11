@@ -1,0 +1,198 @@
+[
+  {
+    "s1": "kitten",
+    "s2": "sitting",
+    "distance": 3,
+    "note": "classic example (substitution + insertion + insertion)"
+  },
+  {
+    "s1": "flaw",
+    "s2": "lawn",
+    "distance": 2,
+    "note": "deletion + insertion"
+  },
+  {
+    "s1": "gumbo",
+    "s2": "gambol",
+    "distance": 2,
+    "note": "substitution + insertion at end"
+  },
+  {
+    "s1": "book",
+    "s2": "back",
+    "distance": 2,
+    "note": "two substitutions"
+  },
+  {
+    "s1": "intention",
+    "s2": "execution",
+    "distance": 5,
+    "note": "complex mixed case"
+  },
+
+  { "s1": "", "s2": "", "distance": 0, "note": "both empty" },
+  { "s1": "a", "s2": "", "distance": 1, "note": "one empty string" },
+  {
+    "s1": "",
+    "s2": "abc",
+    "distance": 3,
+    "note": "insert all characters"
+  },
+
+  {
+    "s1": "a",
+    "s2": "b",
+    "distance": 1,
+    "note": "single substitution"
+  },
+  {
+    "s1": "abc",
+    "s2": "abc",
+    "distance": 0,
+    "note": "identical strings"
+  },
+  {
+    "s1": "abc",
+    "s2": "acb",
+    "distance": 2,
+    "note": "transposition (Levenshtein ≠ Damerau)"
+  },
+  {
+    "s1": "abcd",
+    "s2": "abdc",
+    "distance": 2,
+    "note": "adjacent swap case"
+  },
+
+  {
+    "s1": "Sunday",
+    "s2": "Saturday",
+    "distance": 3,
+    "note": "common prefix/suffix differences"
+  },
+  {
+    "s1": "rosettacode",
+    "s2": "raisethysword",
+    "distance": 8,
+    "note": "longer mid-string mismatches"
+  },
+
+  {
+    "s1": "cat",
+    "s2": "cats",
+    "distance": 1,
+    "note": "single insertion at end"
+  },
+  {
+    "s1": "cats",
+    "s2": "cat",
+    "distance": 1,
+    "note": "single deletion at end"
+  },
+  {
+    "s1": "cat",
+    "s2": "cut",
+    "distance": 1,
+    "note": "vowel substitution"
+  },
+
+  {
+    "s1": "house",
+    "s2": "mouse",
+    "distance": 1,
+    "note": "first character substitution"
+  },
+  {
+    "s1": "mouse",
+    "s2": "mousse",
+    "distance": 1,
+    "note": "single insertion inside double letter"
+  },
+  {
+    "s1": "mousse",
+    "s2": "mouse",
+    "distance": 1,
+    "note": "single deletion"
+  },
+
+  {
+    "s1": "abcd",
+    "s2": "abxcd",
+    "distance": 1,
+    "note": "single insertion in middle"
+  },
+  {
+    "s1": "abcde",
+    "s2": "abxde",
+    "distance": 1,
+    "note": "single substitution in middle"
+  },
+  {
+    "s1": "abc",
+    "s2": "xyz",
+    "distance": 3,
+    "note": "completely different"
+  },
+
+  {
+    "s1": "kitten",
+    "s2": "Kitten",
+    "distance": 1,
+    "note": "case sensitivity (depends on implementation)"
+  },
+  {
+    "s1": "résumé",
+    "s2": "resume",
+    "distance": 2,
+    "note": "accented characters (Unicode handling)"
+  },
+  {
+    "s1": "naïve",
+    "s2": "naive",
+    "distance": 1,
+    "note": "Unicode normalization test"
+  },
+  {
+    "s1": "💙",
+    "s2": "💜",
+    "distance": 1,
+    "note": "single emoji substitution"
+  },
+  {
+    "s1": "👍",
+    "s2": "👍🏻",
+    "distance": 2,
+    "note": "emoji with skin tone modifier (grapheme cluster handling)"
+  },
+
+  {
+    "s1": "abcdef",
+    "s2": "abcf",
+    "distance": 2,
+    "note": "two deletions (middle section)"
+  },
+  {
+    "s1": "abcdef",
+    "s2": "azced",
+    "distance": 3,
+    "note": "multiple substitutions and reorderings"
+  },
+  {
+    "s1": "spelling",
+    "s2": "spelng",
+    "distance": 2,
+    "note": "double deletion case"
+  },
+  {
+    "s1": "aaa",
+    "s2": "aaaa",
+    "distance": 1,
+    "note": "repeated character insertion"
+  },
+  {
+    "s1": "aaaa",
+    "s2": "aa",
+    "distance": 2,
+    "note": "multiple deletions of same char"
+  }
+]

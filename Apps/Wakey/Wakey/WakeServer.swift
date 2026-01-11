@@ -16,13 +16,26 @@ struct WakeServer: AppIntent {
     static var title: LocalizedStringResource = "Wake server"
     static var description = IntentDescription("Wakes a server with a Magic Packet")
     
+    // TODO: redesign this, don't even get a chance to match the server name
     @Parameter(title: "Server to Wake", description: "Server to Wake")
     var serverEntity: ServerEntity
     
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog {
+        
+        // first try by id, then try best attempt phonetic spelling match
         if let server = try WakeyDataStore.shared.fetchServer(id: serverEntity.id) {
             WakeOnLAN.wakeServer(server)
+        } else {
+            
+            let servers = try WakeyDataStore.shared.fetchAllServers()
+            let serverNames = Array(servers.map(\.name))
+            
+            if let best = serverEntity.name.bestPhoneticMatch(in: serverNames) {
+                if let server = try WakeyDataStore.shared.fetchServer(name: best) {
+                    WakeOnLAN.wakeServer(server)
+                }
+            }
         }
         
         return .result(

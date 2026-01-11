@@ -8,6 +8,7 @@
 import AppIntents
 import WakeyLib
 
+// Merging the AppEntity with SwiftData seems ugly, lets just shadow the min data necessary for shortcuts.
 struct ServerEntity: AppEntity, Identifiable {
     var id: UUID
     var name: String
@@ -16,12 +17,12 @@ struct ServerEntity: AppEntity, Identifiable {
         DisplayRepresentation(title: "\(name)")
     }
     
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Server"
-    static var defaultQuery = ServerQuery()
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Server"
+    static let defaultQuery = ServerQuery()
 }
 
 struct ServerQuery: EntityQuery {
-    
+        
     func entities(for identifiers: [ServerEntity.ID]) async throws -> [ServerEntity] {
         var result = [ServerEntity]()
         for identifier in identifiers {
