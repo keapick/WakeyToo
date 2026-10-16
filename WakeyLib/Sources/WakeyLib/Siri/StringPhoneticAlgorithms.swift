@@ -22,7 +22,9 @@ extension String {
         for (index, phoneme) in phonemes.enumerated() {
             let distance = self.soundex().levenshteinDistance(otherString: phoneme)
             
-            if best == nil || (distance < bestScore && distance < maxDistance) {
+            // A candidate must be within maxDistance to be accepted — including the
+            // first one — so a list with nothing in range returns nil.
+            if distance < maxDistance && (best == nil || distance < bestScore) {
                 best = candidates[index]
                 bestScore = distance
                 print("\(candidates[index]) is closer to \(self) with distance: \(distance)")

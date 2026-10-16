@@ -29,7 +29,6 @@
 		5F6046E42D0AC02F004520F6 /* TVHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6046E02D0AC02F004520F6 /* TVHelpView.swift */; };
 		5F6046E52D0AC02F004520F6 /* TVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6046E12D0AC02F004520F6 /* TVView.swift */; };
 		5F6AD69B2E02159A00F5EF46 /* WakeyLib in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AD69A2E02159A00F5EF46 /* WakeyLib */; };
-		5FEC82542C3B1A6200D68E73 /* WakeOnLANIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEC82532C3B1A6200D68E73 /* WakeOnLANIntegrationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +85,6 @@
 		5F6046DF2D0AC02F004520F6 /* TVEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVEditView.swift; sourceTree = "<group>"; };
 		5F6046E02D0AC02F004520F6 /* TVHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVHelpView.swift; sourceTree = "<group>"; };
 		5F6046E12D0AC02F004520F6 /* TVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVView.swift; sourceTree = "<group>"; };
-		5FEC82532C3B1A6200D68E73 /* WakeOnLANIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WakeOnLANIntegrationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				5F0343172C3623270088135C /* WakeyTests.swift */,
-				5FEC82532C3B1A6200D68E73 /* WakeOnLANIntegrationTests.swift */,
 			);
 			path = WakeyTests;
 			sourceTree = "<group>";
@@ -373,7 +370,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F0343182C3623270088135C /* WakeyTests.swift in Sources */,
-				5FEC82542C3B1A6200D68E73 /* WakeOnLANIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

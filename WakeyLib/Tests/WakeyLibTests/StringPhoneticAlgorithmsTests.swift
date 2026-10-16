@@ -129,6 +129,56 @@ struct StringPhoneticAlgorithmsTests {
         #expect(best == "Deane")
     }
     
+    @Test func testBestMatchEmptyCandidatesReturnsNil() async throws {
+        #expect("Deane".bestPhoneticMatch(in: []) == nil)
+    }
+
+    @Test func testBestMatchExactCandidateWins() async throws {
+        // The exact candidate has soundex distance 0, beating the others.
+        #expect("Deane".bestPhoneticMatch(in: ["Ernest", "Deane", "Paulina"]) == "Deane")
+    }
+
+    @Test func testBestMatchIsCaseInsensitive() async throws {
+        // soundex() uppercases both the input and the candidates.
+        #expect("deane".bestPhoneticMatch(in: ["Deane", "Ernest"]) == "Deane")
+        #expect("DEANE".bestPhoneticMatch(in: ["Deane", "Ernest"]) == "Deane")
+    }
+
+    @Test func testBestMatchTiesResolveToFirstCandidate() async throws {
+        // "Robert" and "Rupert" share soundex R163, so an unrelated input is
+        // equidistant to both; bestPhoneticMatch keeps the earliest candidate.
+        #expect("Kappa".bestPhoneticMatch(in: ["Robert", "Rupert"]) == "Robert")
+    }
+
+    @Test func testBestMatchMaxDistanceGate() async throws {
+        // "Deane" (soundex D500) and "Ernest" (E652) differ in all four positions,
+        // so their Levenshtein distance is 4. A candidate is only accepted when its
+        // distance is strictly below maxDistance, and the gate now applies to the
+        // first candidate too, so a list with nothing in range returns nil instead
+        // of falling back to the closest miss.
+        #expect("Deane".bestPhoneticMatch(in: ["Ernest"], maxDistance: 3) == nil)
+        #expect("Deane".bestPhoneticMatch(in: ["Ernest"], maxDistance: 4) == nil) // 4 < 4 is false
+        #expect("Deane".bestPhoneticMatch(in: ["Ernest"], maxDistance: 5) == "Ernest")
+        // When a candidate is within range, the exact match wins over the first.
+        #expect("Deane".bestPhoneticMatch(in: ["Ernest", "Deane"], maxDistance: 5) == "Deane")
+    }
+
+    @Test func testSoundexEmptyIsPaddedWithZeros() async throws {
+        #expect("".soundex() == "0000")
+    }
+
+    @Test func testSoundexCodeIsAlwaysFourCharacters() async throws {
+        #expect("Robert".soundex().count == 4)
+        #expect("Deane".soundex().count == 4)
+    }
+
+    @Test func testLevenshteinEmptyBaselines() async throws {
+        #expect("".levenshteinDistance(otherString: "abc") == 3)
+        #expect("abc".levenshteinDistance(otherString: "") == 3)
+        #expect("".levenshteinDistance(otherString: "") == 0)
+        #expect("abc".levenshteinDistance(otherString: "abc") == 0)
+    }
+
     @Test func testSiriNaveen() async throws {
         let input = "Naveen"
         let candidates = ["Deane", "Ernest", "Naveen Jammula", "Paulina"]

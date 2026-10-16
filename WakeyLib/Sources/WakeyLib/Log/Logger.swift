@@ -77,7 +77,8 @@ public class Logger: NSObject {
     var messageBuffer: [String] = []
     
     func buffer(message: String) {
-        if self.messageBuffer.count > self.maxBufferSize {
+        // Drop the oldest before appending so the buffer never exceeds maxBufferSize.
+        if self.messageBuffer.count >= self.maxBufferSize {
             self.messageBuffer.removeFirst()
         }
         self.messageBuffer.append(message)
