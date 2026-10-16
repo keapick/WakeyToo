@@ -10,8 +10,8 @@ import SwiftData
 import WakeyLib
 
 struct StatusMenuView: View {
-    @Environment(\.openWindow) private var openWindow
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.openSettings) private var openSettings
     @Query(sort: \Server.lastUsed, order: .reverse) private var servers: [Server]
             
     var body: some View {
@@ -27,16 +27,13 @@ struct StatusMenuView: View {
         }
         
         Divider()
-        Button("Settings...") {
-            
-            // Focus existing window, the new version does not work reliably on macOS Sequoia
-            NSApp.activate()
-            NSApplication.shared.activate(ignoringOtherApps: true)
-            
-            // Prevent opening extra settings windows
-            if !NSApplication.shared.windows.contains(where: { $0.title == SettingsView.titleString}) {
-                openWindow(id: SettingsView.viewID)
-            }
+        Button("Settings…") {
+            // The agent (LSUIElement) app isn't the active app, so without an
+            // explicit nudge its window opens behind the frontmost window.
+            // Activate first, then present; the single-instance Settings scene
+            // means openSettings() can't spawn a duplicate window.
+            NSApp.activate(ignoringOtherApps: true)
+            openSettings()
         }
         
         Link("Help", destination: URL(string: "https://ieesizaq.com/wakeytoo/")!)
