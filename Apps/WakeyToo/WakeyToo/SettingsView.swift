@@ -21,31 +21,36 @@ struct SettingsView: View {
     @ObservedObject private var logWrapper = LoggerSwiftUI()
     
     var body: some View {
-        VStack {
-            List {
-                Section("Servers") {
-                    ForEach(servers) { server in
-                        VStack {
-                            HStack {
-                                Text(server.name)
-                                Spacer()
-                            }
-                            HStack {
-                                Text(server.macAddress)
-                                Spacer()
-                                Button("Remove", role: .destructive) {
-                                    modelContext.delete(server)
-                                }
-                            }
+        // A native macOS settings pane — a grouped form of sections — replacing the
+        // hand-styled iOS "card" rows (rounded-gray border overlay + per-row padding)
+        // this view used to render.
+        Form {
+            Section("Servers") {
+                ForEach(servers) { server in
+                    // Native row: name as the primary label, MAC address as secondary
+                    // detail, and a trailing destructive remove control.
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(server.name)
+                            Text(server.macAddress)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
                         }
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                        Spacer()
+                        Button(role: .destructive) {
+                            modelContext.delete(server)
+                        } label: {
+                            Label("Remove", systemImage: "trash")
+                        }
                     }
-                    Button("Add Server") {
+                }
+
+                HStack {
+                    Spacer()
+                    Button {
                         showingDialog.toggle()
+                    } label: {
+                        Label("Add Server", systemImage: "plus")
                     }
                     .alert("New Server", isPresented: $showingDialog) {
                         EditView()
@@ -53,19 +58,19 @@ struct SettingsView: View {
                     }
                     .dialogIcon(Image(systemName: "network"))
                 }
-                .listRowSeparator(.hidden)
-
-                Section("Log") {
-                    Text(logWrapper.text)
-                    
-                    Button("Clear", role: .destructive) {
-                        logWrapper.removalAll()
-                    }
-                }
-                .listRowSeparator(.hidden)
             }
+            .listRowSeparator(.hidden)
+
+            Section("Log") {
+                Text(logWrapper.text)
+                Button("Clear", role: .destructive) {
+                    logWrapper.removalAll()
+                }
+            }
+            .listRowSeparator(.hidden)
         }
-        .frame(minWidth: 400, maxWidth: 400, minHeight: 200, maxHeight: .infinity)
+        .formStyle(.grouped)
+        .frame(minWidth: 400, minHeight: 200)
         .navigationTitle(SettingsView.titleString)
     }
     
