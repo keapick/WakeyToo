@@ -14,12 +14,14 @@ struct SettingsView: View {
     static let titleString = "WakeyToo, a Wake-on-LAN Utility"
 
     @State private var showingDialog = false
-    
+    @State private var editingServer: Server? = nil
+    @State private var deletingServer: Server? = nil
+
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Server.lastUsed, order: .reverse) private var servers: [Server]
 
     @ObservedObject private var logWrapper = LoggerSwiftUI()
-    
+
     var body: some View {
         // A native macOS settings pane — a grouped form of sections — replacing the
         // hand-styled iOS "card" rows (rounded-gray border overlay + per-row padding)
@@ -28,7 +30,7 @@ struct SettingsView: View {
             Section("Servers") {
                 ForEach(servers) { server in
                     // Native row: name as the primary label, MAC address as secondary
-                    // detail, and a trailing destructive remove control.
+                    // detail, and a trailing edit / remove control for that server.
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(server.name)
@@ -37,11 +39,18 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
+                        Button {
+                            editingServer = server
+                        } label: {
+                            Label("Edit", systemImage: "pencil")
+                        }
+                        .help("Edit this server")
                         Button(role: .destructive) {
-                            modelContext.delete(server)
+                            deletingServer = server
                         } label: {
                             Label("Remove", systemImage: "trash")
                         }
+                        .help("Remove this server")
                     }
                 }
 
@@ -52,11 +61,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Add Server", systemImage: "plus")
                     }
-                    .alert("New Server", isPresented: $showingDialog) {
-                        EditView()
-                            .modelContext(modelContext)
-                    }
-                    .dialogIcon(Image(systemName: "network"))
+                    .help("Add a new server")
                 }
             }
             .listRowSeparator(.hidden)
@@ -72,8 +77,37 @@ struct SettingsView: View {
         .formStyle(.grouped)
         .frame(minWidth: 400, minHeight: 200)
         .navigationTitle(SettingsView.titleString)
+        // Add a new server (server == nil) in a native sheet.
+        .sheet(isPresented: $showingDialog) {
+            EditView(server: nil)
+                .modelContext(modelContext)
+        }
+        // Edit an existing server in place.
+        .sheet(item: $editingServer) { server in
+            EditView(server: server)
+                .modelContext(modelContext)
+        }
+        // Confirm before a destructive remove so a one-tap delete can't nuke a
+        // server on a typo.
+        .confirmationDialog(
+            Text("Remove \(deletingServer?.name ?? "this server")? This can't be undone."),
+            isPresented: Binding(
+                get: { deletingServer != nil },
+                set: { active in
+                    if !active { deletingServer = nil }
+                }
+            ),
+            titleVisibility: .visible
+        ) {
+            Button("Remove", role: .destructive) {
+                if let server = deletingServer {
+                    modelContext.delete(server)
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        }
     }
-    
+
     private func debugServers() -> [Server] {
         return [
             Server(macAddress: "D8:BB:C1:8F:20:DB", name: "Blinky"),
