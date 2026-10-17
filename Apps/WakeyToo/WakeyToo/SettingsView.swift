@@ -10,7 +10,6 @@ import SwiftData
 import WakeyLib
 
 struct SettingsView: View {
-    static let viewID: String = "settings-view"
     static let titleString = "WakeyToo, a Wake-on-LAN Utility"
 
     @State private var showingDialog = false
@@ -117,13 +116,6 @@ struct SettingsView: View {
             }
             Button("Cancel", role: .cancel) {}
         }
-    }
-
-    private func debugServers() -> [Server] {
-        return [
-            Server(macAddress: "D8:BB:C1:8F:20:DB", name: "Blinky"),
-            Server(macAddress: "44:8A:5B:5E:19:9B", name: "Variolite")
-        ]
     }
 }
 
