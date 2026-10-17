@@ -30,7 +30,7 @@ struct EditView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Server") {
+                Section {
                     TextField("Name", text: $name)
                     TextField("Hardware or MAC Address", text: $macAddress)
 
@@ -55,6 +55,7 @@ struct EditView: View {
                 }
             }
             .frame(width: 340)
+            .padding(.bottom, 16)
             .navigationTitle(editorTitle)
             .onAppear {
                 // When editing, pre-fill the fields from the server. Those values

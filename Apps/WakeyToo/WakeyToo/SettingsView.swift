@@ -67,7 +67,18 @@ struct SettingsView: View {
             .listRowSeparator(.hidden)
 
             Section("Log") {
-                Text(logWrapper.text)
+                // A compact, scrollable window onto the most recent messages. The
+                // backing buffer is already capped at `maxLines` (10), so here we
+                // just bound the on-screen height instead of letting those lines grow
+                // the whole settings window.
+                ScrollView {
+                    Text(logWrapper.text)
+                        .font(.caption)
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(height: 120)
+
                 Button("Clear", role: .destructive) {
                     logWrapper.removalAll()
                 }
