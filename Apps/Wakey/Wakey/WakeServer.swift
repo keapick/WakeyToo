@@ -16,31 +16,38 @@ struct WakeServer: AppIntent {
     static var title: LocalizedStringResource = "Wake server"
     static var description = IntentDescription("Wakes a server with a Magic Packet")
     
-    // TODO: redesign this, don't even get a chance to match the server name
     @Parameter(title: "Server to Wake", description: "Server to Wake")
     var serverEntity: ServerEntity
     
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog {
+        var wokenServerName: String? = nil
         
-        // first try by id, then try best attempt phonetic spelling match
+        // first try by id (Exact match/Existing Shortcut)
         if let server = try WakeyDataStore.shared.fetchServer(id: serverEntity.id) {
             WakeOnLAN.wakeServer(server)
+            wokenServerName = server.name
         } else {
-            
+            // Fallback: Fuzzy match on the name Siri passed (Synthetic Entity)
             let servers = try WakeyDataStore.shared.fetchAllServers()
-            let serverNames = Array(servers.map(\.name))
+            let serverNames = servers.map(\.name)
             
-            if let best = serverEntity.name.bestPhoneticMatch(in: serverNames) {
-                if let server = try WakeyDataStore.shared.fetchServer(name: best) {
-                    WakeOnLAN.wakeServer(server)
-                }
+            if let bestMatchName = serverEntity.name.bestPhoneticMatch(in: serverNames),
+               let server = try WakeyDataStore.shared.fetchServer(name: bestMatchName) {
+                WakeOnLAN.wakeServer(server)
+                wokenServerName = server.name
             }
         }
         
-        return .result(
-            dialog: "Okay, sending a magic packet to \(serverEntity.name)."
-        )
+        if let name = wokenServerName {
+            return .result(
+                dialog: "Okay, sending a magic packet to \(name)."
+            )
+        } else {
+            return .result(
+                dialog: "I couldn't find a server matching \(serverEntity.name)."
+            )
+        }
     }
     
     static var parameterSummary: some ParameterSummary {
@@ -53,4 +60,3 @@ struct WakeServer: AppIntent {
         self.serverEntity = serverEntity
     }
 }
-

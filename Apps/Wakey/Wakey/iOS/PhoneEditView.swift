@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WakeyLib
+import SwiftData
 
 // iOS edit view
 struct PhoneEditView: View {
